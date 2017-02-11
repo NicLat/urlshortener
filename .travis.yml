@@ -15,8 +15,8 @@ env:
 install: npm install
 # Build and start the container
 before_script: 
-  - docker build -t testshortener .
-  - docker run -d -p 3000:3000 -e AUTH=$AUTH -e USER=$USER -e PASSWORD=$PASSWORD --name testcon1 testshortener
+  - docker build -t image1 .
+  - docker run -d -p 3000:3000 -e AUTH=$AUTH -e USER=$USER -e PASSWORD=$PASSWORD --name testcon1 image1
 # Run the tests
 script:
   - npm run lint

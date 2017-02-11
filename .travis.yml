@@ -1,15 +1,22 @@
+# Enable sudo (needed for docker)
+sudo: required
 # Use node.js environment
 language: node_js
 # Test only version 7
 node_js: "7"
+# Declare that docker service is needed
+services:
+  - docker
 # Define different groups of environment variables
 env: 
   - AUTH=false
   - AUTH=true USER=test PASSWORD=secret
 # Install dependencies
 install: npm install
-# Start the service
-before_script: npm start
+# Build and start the container
+before_script: 
+  - docker build -t testshortener .
+  - docker run -d -p 3000:3000 -e AUTH=$AUTH -e USER=$USER -e PASSWORD=$PASSWORD --name testcon1 testshortener
 # Run the tests
 script:
   - npm run lint
